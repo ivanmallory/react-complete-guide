@@ -5,31 +5,57 @@ import Person from './Person/Person'
 class App extends Component {
   state = {
     persons: [
-      {name: "Ivan", age: 27},
-      {name: "Ismet", age: 26},
-      {name: "Ben", age: 34},
-    ]
+      {id: 1, name: "Ivan", age: 27},
+      {id: 2, name: "Ismet", age: 26},
+      {id: 3, name: "Ben", age: 34},
+    ],
+    showPersons: false
   }
+  nameChangedHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+    const person = {
+      ...this.state.persons[personIndex]
+    }
+    person.name = event.target.value;
 
-  switchNameHandler = (newName) => {
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
     this.setState({
-      persons: [
-        {name: newName, age: 25},
-        {name: "Ismet", age: 26},
-        {name: "Howard", age: 38},
-      ]
+      persons: persons
     })
   }
-  nameChangedHandler = (event) => {
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
     this.setState({
-      persons: [
-        {name: 'Ivan', age: 25},
-        {name: event.target.value, age: 26},
-        {name: "Howard", age: 38},
-      ]
+      showPersons: !doesShow
+    })
+  }
+  deletePersonHandler = (personIndex) => {
+    const persons = this.state.persons.slice();
+    persons.splice(personIndex, 1)
+    this.setState({
+      persons: persons
     })
   }
   render() {
+    let persons = null;
+    
+    if(this.state.showPersons){
+      persons = (
+        <div>
+          {this.state.persons.map((person, index) => {
+            return <Person 
+                  key={person.id}
+                  click={() => this.deletePersonHandler(index)}
+                  name={person.name} 
+                  age={person.age}
+                  changed={(event) => this.nameChangedHandler(event, person.id)} />
+          })}
+        </div>
+      )
+    }
     return (
       <div className="App">
         <h1>Hello World!</h1>
@@ -38,23 +64,11 @@ class App extends Component {
             borderRadius: "5px", 
             backgroundColor: "coral", 
             font: "inherit",
-            border: "1px solid blue"
+            fontSize: "18px",
+            border: "none"
           }} 
-          onClick={() => this.switchNameHandler('Von!!!')}>Switch Name</button>
-        <Person 
-          name={this.state.persons[0].name}
-          click={this.switchNameHandler.bind(this, 'Ivan!!!')} 
-          age={this.state.persons[0].age}>My Hobbies: Music
-        </Person>
-        <Person 
-          name={this.state.persons[1].name} 
-          age={this.state.persons[1].age}
-          changed={this.nameChangedHandler}
-        />
-        <Person 
-          name={this.state.persons[2].name} 
-          age={this.state.persons[2].age}
-        />
+          onClick={this.togglePersonsHandler}>Toggle Users</button>
+          {persons}
       </div>
     );
   }
