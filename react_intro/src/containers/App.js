@@ -42,14 +42,13 @@ class App extends Component {
     })
   }
   render() {
-   let persons = null;
+    let persons = null;
     
     if(this.state.showPersons){
       persons = <Persons 
           persons={this.state.persons}
           clicked={this.deletePersonHandler}
-          changed={this.nameChangedHandler}
-           />  
+          changed={this.nameChangedHandler}/>  
     }
     const assignedClasses = [];
     if(this.state.persons.length <= 2){
