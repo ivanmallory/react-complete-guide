@@ -3,6 +3,7 @@ import Auxiliary from '../../hoc/Auxiliary';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
@@ -20,7 +21,8 @@ class BurgerBuilder extends Component {
             meat: 0
         },
         totalPrice: 4,
-        purchasable: false //becomes true once you can buy the burger i.e when an ingredient is one ore more
+        purchasable: false, //becomes true once you can buy the burger i.e when an ingredient is one ore more
+        purchasing: false
     }
     updatePurchaseState (ingredients) {
         const sum = Object.keys(ingredients)
@@ -62,6 +64,12 @@ class BurgerBuilder extends Component {
         this.setState({totalPrice: newPrice, ingredients: updatedIngredients})
         this.updatePurchaseState(updatedIngredients); //Runs updatePurchaseState if ingredients are removed, allowing the order button to be enabled. Also must pass updatedIngredients to pull the new state
     }
+    purchaseHandler = () => { //Must use arrow function in order to retreive state otherwise an error will occur
+        this.setState({purchasing: true})
+    }
+    purchaseCancelHandler = () => {
+        this.setState({purchasing: false})
+    }
     render(){
         const disabledInfo = {
             ...this.state.ingredients
@@ -72,13 +80,16 @@ class BurgerBuilder extends Component {
         // {salad: true, meat: false, ...}  Checks if it's true or false and if true, it should be disabled
         return(
             <Auxiliary>
-                <Modal />
+                <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+                    <OrderSummary ingredients={this.state.ingredients} />
+                </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BuildControls 
                     ingredientAdded={this.addIngredientHandler}
                     ingredientRemoved={this.removeIngredientHandler}
                     disabled={disabledInfo}
                     purchasable={this.state.purchasable}
+                    ordered={this.purchaseHandler}
                     price={this.state.totalPrice}
                 />
             </Auxiliary>
