@@ -1,0 +1,47 @@
+Burger Builder Structure
+
+App
+    -Layout
+        -Toolbar
+            -DrawerToggle
+            -Logo
+            -Navigation Items 
+        -SideDrawer
+            -DrawerToggle
+            -Logo
+            -Navigation Items
+        -Backdrop
+        -{props.children}
+            -Different Pages
+                -BurgerBuilder (Page)- Manage State here... 
+                    -BuildControls
+                        -BuildControl
+                        -BuildControl
+                        -OrderButton
+                    -BurgerPreview
+                        -ingredient
+                        -ingredient
+                    -Modal (Checkout Previews)- Displaying confirmation/error message across multiple pages
+                        -{props.children}
+
+State
+    -ingredients (List of objects)
+        {meat: 1, cheese: 2}
+    -purchased: true/false
+    -totalPrice: ?
+
+
+Header
+-Orders
+-Builder
+-Logo
+
+Builder Page
+-Preview of burger w/ different ingredients
+-Price of burger
+-Controls below burger
+    Ex. Meat, Salad, Cheese + -
+-Checkout button
+
+
+ 
