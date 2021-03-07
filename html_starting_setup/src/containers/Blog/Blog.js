@@ -54,4 +54,4 @@ class Blog extends Component {
     }
 }
 
-export default Blo
+export default Blog
