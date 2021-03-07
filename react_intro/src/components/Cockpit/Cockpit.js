@@ -10,21 +10,47 @@ const Cockpit = (props) => {
     
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
+<<<<<<< HEAD
+        setTimeout(() =>{
+            alert('Saved data to cloud!');
+        }, 1000);
+        return () => {
+            console.log('[Cockpit.js] cleanup work in useEffect')
+        };
+    }, []);
+
+    useEffect(() => {
+        console.log('[Cockpit.js] 2nd useEffect');
+        return () => {
+            console.log('[Cockpit.js] cleanup work in 2nd useEffect')
+        };
+    });
+
+=======
         toggleBtnRef.current.click();
         return () => {
             console.log('[Cockpit.js cleanup work in useEffect')
         };
     }, []);
+>>>>>>> 629841ef13299d5137d1c09581bef06e2aac27cf
     const assignedClasses = [];
     let btnClass = '';
     if(props.showPersons){
         btnClass = classes.Red;
     }
+<<<<<<< HEAD
+    if(props.personsLength <= 2){
+      assignedClasses.push(classes.red);
+    }
+    if(props.personsLengths <= 1){
+      assignedClasses.push(classes.bold);
+=======
     if(props.persons.length <= 2){
         assignedClasses.push(classes.red);
     }
     if(props.persons.length <= 1){
         assignedClasses.push(classes.bold);
+>>>>>>> 629841ef13299d5137d1c09581bef06e2aac27cf
     }
     return(
         <div className={classes.Cockpit}>
@@ -35,4 +61,4 @@ const Cockpit = (props) => {
         </div>
     );
 };
-export default Cockpit;
+export default React.memo(Cockpit);

@@ -16,7 +16,7 @@ class NewPost extends Component {
             body: this.state.content,
             author: this.state.author
         }
-        axios.post('https://jsonplaceholder.typicode.com/posts/', data) //Posts information to a site. Use .post instead of .get but you can use the same URL. Must pass data as second argument.
+        axios.post('/posts/', data) //Posts information to a site. Use .post instead of .get but you can use the same URL. Must pass data as second argument.
             .then(response => {
                 console.log(response)
             });

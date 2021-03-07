@@ -19,9 +19,13 @@ class App extends Component {
       {id: 3, name: "Ben", age: 34},
     ],
     showPersons: false,
+<<<<<<< HEAD
+    showCockpit: true
+=======
     showCockpit: true,
     changeCounter: 0,
     authenticated: false
+>>>>>>> 629841ef13299d5137d1c09581bef06e2aac27cf
   }
   static getDerivedStateFromProps(props, state){
     console.log('[App.js] getDerivedStateFromProps', props)
@@ -94,6 +98,17 @@ class App extends Component {
     }
     
     return (
+<<<<<<< HEAD
+      <div className={classes.App}>
+          <button onClick={() => {this.setState({
+            showCockpit: false
+          })}}>Remove Cockpit</button>
+          {this.state.showCockpit ? <Cockpit 
+          title={this.props.appTitle}
+          showPersons={this.state.showPersons} 
+          personsLength={this.state.persons.length}
+          clicked={this.togglePersonsHandler}/> : null}
+=======
       <Aux>
         <button onClick={() => {
             this.setState({showCockpit: false});
@@ -112,6 +127,7 @@ class App extends Component {
             clicked={this.togglePersonsHandler}
             />
           ) : null}
+>>>>>>> 629841ef13299d5137d1c09581bef06e2aac27cf
           {persons}
         </AuthContext.Provider>
       </Aux>

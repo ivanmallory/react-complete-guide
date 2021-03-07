@@ -11,8 +11,8 @@ class FullPost extends Component {
 
     componentDidUpdate (){
         if(this.props.id){
-            if(!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)){
-                axios.get('https://jsonplaceholder.typicode.com/posts/' + this.props.id)
+            if(!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)){ //Checks if there is an existing post or if the existing post is the same as the one being fetched which prevents an infinite loop
+                axios.get('/posts/' + this.props.id)
                 .then(response => {
                     //console.log(response);
                     this.setState({loadedPost: response.data})
@@ -27,7 +27,7 @@ class FullPost extends Component {
     }
 
     deletePostHandler = () => {
-        axios.delete('https://jsonplaceholder.typicode.com/posts/' + this.props.id)
+        axios.delete('posts/' + this.props.id)
             .then(response => {
                 console.log(response);
             });

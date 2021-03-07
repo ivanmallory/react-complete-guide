@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import axios from '../../axios';
 
 import Post from '../../components/Post/Post';
 import FullPost from '../../components/FullPost/FullPost';
@@ -13,7 +13,7 @@ class Blog extends Component {
         selectedPostId: null
     }
     componentDidMount (){
-        axios.get('https://jsonplaceholder.typicode.com/posts') //Can't store as a variable because it is always updating
+        axios.get('/posts') //Can't store as a variable because it is always updating
             .then(response => {
                 const posts = response.data.slice(0,4); //Stores only the data posts from 1-4, preventing them from all appearing on the screen
                 const updatedPosts = posts.map(post => {
@@ -33,7 +33,7 @@ class Blog extends Component {
     }
     render () {
         let posts = <p style={{textAlign: "center"}}>Something went wrong!</p>;
-        if(!this.state.error){ //Overrides posts if there isn't an errorvvvvvvvv
+        if(!this.state.error){ //Overrides posts if there isn't an error
             posts = this.state.posts.map(post => {
                 return <Post key={post.id} title={post.title} author={post.author} clicked={() => this.postSelectedHandler(post.id)}/>
             });
