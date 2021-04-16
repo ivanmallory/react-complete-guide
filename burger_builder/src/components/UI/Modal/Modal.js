@@ -5,7 +5,7 @@ import Backdrop from '../Backdrop/Backdrop';
 //Summary of ingredients added. Should only display when 'Order Now' button is clicked. //On clicking background, modal disappears
 class Modal extends Component {
     shouldComponentUpdate(nextProps, nextState){ //Checks if the next props is not equal to the previous props, then return 'true' 
-        return nextProps.show !== this.props.show;
+        return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
     }
     componentWillUpdate(){ //Controls whether OrderSummary will update. Clicking 'Order Now' will cause OrderSummary to update, avoiding additional rendering
         console.log('[Modal] will update')
